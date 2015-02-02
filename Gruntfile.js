@@ -35,8 +35,8 @@ module.exports = function (grunt) {
 ////        assets: 'assets',
 //        // No plugins for now
 ////        plugins: ['permalinks'],
-//        partials: ['<%= yeoman.src %>/views/partials/**/*.hbs'],
-//        layoutdir: '<%= yeoman.src %>/views/layouts',
+//        partials: ['<%= yeoman.src %>/templates/partials/**/*.hbs'],
+//        layoutdir: '<%= yeoman.src %>/templates/layouts',
 //        data: '<%= yeoman.src %>/data/**/*.{json,yml}',
 //        flatten: true
 //      },
@@ -44,7 +44,7 @@ module.exports = function (grunt) {
 //        options: {
 //          layout: 'standard_layout.hbs'
 //        },
-//        src: ['<%= yeoman.src %>/views/static/**/*.hbs'],
+//        src: ['<%= yeoman.src %>/templates/static/**/*.hbs'],
 //        dest: '<%= yeoman.temp %>/'
 //      }
 //    },
@@ -55,14 +55,14 @@ module.exports = function (grunt) {
         // No plugins for now
 //        plugins: ['assemble-middleware-lunr'],
         helpers: [],
-        partials: ['<%= yeoman.src %>/views/partials/**/*.hbs'],
-        layoutdir: '<%= yeoman.src %>/views/layouts',
+        partials: ['<%= yeoman.src %>/templates/partials/**/*.hbs'],
+        layoutdir: '<%= yeoman.src %>/templates/layouts',
         data: '<%= yeoman.src %>/data/**/*.{json,yml}',
         flatten: true
       },
       static: {
         expand: true,
-        cwd: '<%= yeoman.src %>/views/pages',
+        cwd: '<%= yeoman.src %>/templates/pages',
         src: [
           './**/*.hbs'
         ],
@@ -181,14 +181,14 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '<%= yeoman.src %>/views/layouts/',
+            cwd: '<%= yeoman.src %>/templates/layouts/',
             src: 'base_layout.hbs',
             dest: '<%= yeoman.temp %>'
           },
           {
             expand: true,
             cwd: '<%= yeoman.src %>',
-            src: 'views/**/*.hbs',
+            src: 'templates/**/*.hbs',
             dest: '<%= yeoman.dist %>'
           }
         ]
@@ -204,7 +204,7 @@ module.exports = function (grunt) {
               '*.{ico,png,txt}',
               '.htaccess',
               '*.html',
-              'views/{,*/}*.html',
+              'templates/{,*/}*.html',
               'images/{,*/}*.{webp}',
               'fonts/*'
             ]
@@ -263,7 +263,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
+          src: ['*.html', 'templates/{,*/}*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -376,8 +376,8 @@ module.exports = function (grunt) {
           {
             expand: true,
             flatten: true,
-            src: ['<%= yeoman.src %>/views/layouts/base_layout.hbs'],
-            dest: '<%= yeoman.src %>/views/layouts/'
+            src: ['<%= yeoman.src %>/templates/layouts/base_layout.hbs'],
+            dest: '<%= yeoman.src %>/templates/layouts/'
           }
         ]
       }
@@ -534,7 +534,7 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
-      html: ['<%= yeoman.dist %>/views/**/*.hbs'],
+      html: ['<%= yeoman.dist %>/templates/**/*.hbs'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         assetsDirs: ['<%= yeoman.dist %>']
@@ -597,7 +597,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep', 'replace:develop']
       },
       handlebars: {
-        files: ['<%= yeoman.src %>/views/**/*.hbs'],
+        files: ['<%= yeoman.src %>/templates/**/*.hbs'],
         tasks: ['assemble'],
         options: {
           livereload: true
@@ -636,14 +636,14 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the html
     wiredep: {
       src: {
-        src: ['<%= yeoman.src %>/views/layouts/base_layout.hbs'],
+        src: ['<%= yeoman.src %>/templates/layouts/base_layout.hbs'],
         exclude: [
           '<%= yeoman.src %>/bower_components/json3/lib/json3.min.js',
           '<%= yeoman.src %>/bower_components/es5-shim/es5-shim.js'
         ],
         bowerJson: require('./bower.json'),
         directory: '<%= yeoman.src %>/bower_components',
-        cwd: '<%= yeoman.src %>/views/layouts'
+        cwd: '<%= yeoman.src %>/templates/layouts'
       }
     }
   });
