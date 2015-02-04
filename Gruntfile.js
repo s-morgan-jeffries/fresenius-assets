@@ -116,9 +116,10 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*',
-            '!<%= yeoman.dist %>/CNAME'
+            '<%= yeoman.dist %>/*'
+            //,
+            //'!<%= yeoman.dist %>/.git*',
+            //'!<%= yeoman.dist %>/CNAME'
           ]
         }]
       },
@@ -132,12 +133,13 @@ module.exports = function (grunt) {
       ],
       test: [
         'stylus:build'
-      ],
-      build: [
-        'stylus:build',
-        'imagemin',
-        'svgmin'
       ]
+      //,
+      //build: [
+      //  'stylus:build',
+      //  'imagemin',
+      //  'svgmin'
+      //]
     },
 
     // The actual grunt server settings
@@ -179,12 +181,6 @@ module.exports = function (grunt) {
     copy: {
       build: {
         files: [
-          //{
-          //  expand: true,
-          //  cwd: '<%= yeoman.src %>/templates/layouts/',
-          //  src: 'base_layout.hbs',
-          //  dest: '<%= yeoman.temp %>'
-          //},
           {
             expand: true,
             cwd: '<%= yeoman.src %>',
@@ -200,66 +196,66 @@ module.exports = function (grunt) {
           }
         ]
       },
-      build1: {
-        files: [
-          {
-            expand: true,
-            cwd: '<%= yeoman.src %>/templates/layouts/',
-            src: 'base_layout.hbs',
-            dest: '<%= yeoman.temp %>'
-          },
-          {
-            expand: true,
-            cwd: '<%= yeoman.src %>',
-            src: 'templates/**/*.hbs',
-            dest: '<%= yeoman.dist %>'
-          }
-        ]
-      },
-      build2: {
-        files: [
-          {
-            expand: true,
-            dot: true,
-            cwd: '<%= yeoman.src %>',
-            dest: '<%= yeoman.dist %>',
-            src: [
-              '*.{ico,png,txt}',
-              '.htaccess',
-              '*.html',
-              'templates/{,*/}*.html',
-              'images/{,*/}*.{webp}',
-              'fonts/*'
-            ]
-          },
-          {
-            expand: true,
-            cwd: '.tmp/images',
-            dest: '<%= yeoman.dist %>/images',
-            src: ['generated/*']
-          },
-          {
-            expand: true,
-            cwd: '.tmp',
-            dest: '<%= yeoman.dist %>',
-            src: ['**/*.html']
-          },
-          // You have to have this to copy fonts
-          {
-            expand: true,
-            cwd: '<%= yeoman.src %>',
-            dest: '<%= yeoman.dist %>',
-//            src: ['bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'],
-
-            src: [
-              'bower_components/**/*.eot',
-              'bower_components/**/*.svg',
-              'bower_components/**/*.ttf',
-              'bower_components/**/*.woff'
-            ]
-          }
-        ]
-      },
+      //build1: {
+      //  files: [
+      //    {
+      //      expand: true,
+      //      cwd: '<%= yeoman.src %>/templates/layouts/',
+      //      src: 'base_layout.hbs',
+      //      dest: '<%= yeoman.temp %>'
+      //    },
+      //    {
+      //      expand: true,
+      //      cwd: '<%= yeoman.src %>',
+      //      src: 'templates/**/*.hbs',
+      //      dest: '<%= yeoman.dist %>'
+      //    }
+      //  ]
+      //},
+//      build2: {
+//        files: [
+//          {
+//            expand: true,
+//            dot: true,
+//            cwd: '<%= yeoman.src %>',
+//            dest: '<%= yeoman.dist %>',
+//            src: [
+//              '*.{ico,png,txt}',
+//              '.htaccess',
+//              '*.html',
+//              'templates/{,*/}*.html',
+//              'images/{,*/}*.{webp}',
+//              'fonts/*'
+//            ]
+//          },
+//          {
+//            expand: true,
+//            cwd: '.tmp/images',
+//            dest: '<%= yeoman.dist %>/images',
+//            src: ['generated/*']
+//          },
+//          {
+//            expand: true,
+//            cwd: '.tmp',
+//            dest: '<%= yeoman.dist %>',
+//            src: ['**/*.html']
+//          },
+//          // You have to have this to copy fonts
+//          {
+//            expand: true,
+//            cwd: '<%= yeoman.src %>',
+//            dest: '<%= yeoman.dist %>',
+////            src: ['bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*.*'],
+//
+//            src: [
+//              'bower_components/**/*.eot',
+//              'bower_components/**/*.svg',
+//              'bower_components/**/*.ttf',
+//              'bower_components/**/*.woff'
+//            ]
+//          }
+//        ]
+//      },
       styles: {
         expand: true,
         cwd: '<%= yeoman.src %>/styles',
@@ -391,6 +387,10 @@ module.exports = function (grunt) {
             {
               match: '../../bower_components',
               replacement: '/bower_components'
+            },
+            {
+              match: '{.tmp,src}',
+              replacement: '{node_modules/fresenius-assets/dist,.tmp,src}'
             }
           ],
           usePrefix: false
@@ -438,9 +438,6 @@ module.exports = function (grunt) {
         }
       }
     },
-
-
-
 
     'sprite': {
       'all': {
@@ -709,58 +706,13 @@ module.exports = function (grunt) {
     ]);
   });
 
-//  grunt.registerTask('serve', function (target) {
-//    if (target === 'dist') {
-//      return grunt.task.run(['build', 'connect:dist:keepalive']);
-//    }
-//
-//    grunt.task.run([
-//      'clean:server',
-//      'wiredep',
-//      'replace:develop',
-//      'assemble',
-//      'concurrent:server',
-//      'autoprefixer',
-//      'connect:develop',
-//      'watch'
-//    ]);
-//  });
-
-//  grunt.registerTask('test', [
-//    'clean:server',
-//    'concurrent:test',
-//    'autoprefixer',
-//    'connect:test',
-//    'karma'
-//  ]);
-
-//  grunt.registerTask('build', [
-//    'clean:build',
-//    'wiredep',
-//    'replace',
-//    'assemble',
-//    'copy:build1',
-//    'useminPrepare',
-//    'concurrent:build',
-//    'autoprefixer',
-//    'concat',
-//    'copy:build2',
-//    'cdnify',
-//    'cssmin',
-//    'uglify',
-//    'rev',
-//    'usemin',
-//    'htmlmin'
-//  ]);
-
-
   grunt.registerTask('build', function (target) {
     var buildTasks = [
       'clean:build',
       'wiredep',
       'sprite',
       'copy:build',
-      'replace'
+      'replace:build'
       //'assemble',
       //'copy:build1',
       //'useminPrepare',
