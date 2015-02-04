@@ -1,6 +1,5 @@
 node_modules
 .tmp
 src/bower_components
-.test_env
 .idea
 TODO

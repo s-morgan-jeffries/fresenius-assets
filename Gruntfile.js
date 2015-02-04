@@ -177,6 +177,29 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
+      build: {
+        files: [
+          //{
+          //  expand: true,
+          //  cwd: '<%= yeoman.src %>/templates/layouts/',
+          //  src: 'base_layout.hbs',
+          //  dest: '<%= yeoman.temp %>'
+          //},
+          {
+            expand: true,
+            cwd: '<%= yeoman.src %>',
+            src: [
+              'bower_components/**/*',
+              'images/**/*',
+              'scripts/**/*',
+              'styles/**/*',
+              'templates/**/*',
+              'favicon.ico'
+            ],
+            dest: '<%= yeoman.dist %>'
+          }
+        ]
+      },
       build1: {
         files: [
           {
@@ -362,12 +385,31 @@ module.exports = function (grunt) {
 //    },
 
     replace: {
+      build: {
+        options: {
+          patterns: [
+            {
+              match: '../../bower_components',
+              replacement: '/bower_components'
+            }
+          ],
+          usePrefix: false
+        },
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ['<%= yeoman.dist %>/templates/layouts/base_layout.hbs'],
+            dest: '<%= yeoman.dist %>/templates/layouts/'
+          }
+        ]
+      },
       develop: {
         options: {
           patterns: [
             {
               match: '../../bower_components',
-              replacement: 'bower_components'
+              replacement: '/bower_components'
             }
           ],
           usePrefix: false
@@ -506,7 +548,7 @@ module.exports = function (grunt) {
           linenos: true
         },
         files: {
-          '<%= yeoman.src %>/styles/style.css': ['<%= yeoman.src %>/styles/style.styl']
+          '<%= yeoman.temp %>/styles/style.css': ['<%= yeoman.src %>/styles/index.styl']
         }
       },
       build: {
@@ -515,7 +557,7 @@ module.exports = function (grunt) {
           linenos: false
         },
         files: {
-          '<%= yeoman.src %>/styles/style.css': ['<%= yeoman.src %>/styles/style.styl']
+          '<%= yeoman.temp %>/styles/style.css': ['<%= yeoman.src %>/styles/index.styl']
         }
       }
     },
@@ -716,20 +758,21 @@ module.exports = function (grunt) {
     var buildTasks = [
       'clean:build',
       'wiredep',
-      'replace',
       'sprite',
+      'copy:build',
+      'replace'
       //'assemble',
-      'copy:build1',
-      'useminPrepare',
-      'concurrent:build',
-      'autoprefixer',
-      'concat',
-      'copy:build2',
-      'cdnify',
-      'cssmin',
-      'uglify',
-      'rev',
-      'usemin'
+      //'copy:build1',
+      //'useminPrepare',
+      //'concurrent:build',
+      //'autoprefixer',
+      //'concat',
+      //'copy:build2',
+      //'cdnify',
+      //'cssmin',
+      //'uglify',
+      //'rev',
+      //'usemin'
       //'htmlmin'
     ];
 
